@@ -7,6 +7,7 @@ a database of popular baby names.
 import csv
 import math
 from typing import List, Tuple, Any
+import os
 
 
 def index_range(page: int, page_size: int) -> Tuple[int, int]:
@@ -31,7 +32,8 @@ class Server:
     Server class to paginate a database of popular baby names.
     """
 
-    DATA_FILE = "Popular_Baby_Names.csv"
+    DATA_FILE = os.path.join(os.path.dirname(__file__),
+                             "Popular_Baby_Names.csv")
 
     def __init__(self):
         """
@@ -71,9 +73,9 @@ class Server:
         assert page_size > 0
 
         start_index, end_index = index_range(page, page_size)
-        if start_index > len(self.__dataset)
-        or end_index > len(self.__dataset):
-            return []
+        if start_index > len(self.__dataset):
+            if end_index > len(self.__dataset):
+                return []
         return self.__dataset[start_index:end_index]
 
     def get_hyper(self, page: int = 1, page_size: int = 10) -> dict[str, Any]:
@@ -90,7 +92,7 @@ class Server:
         start_index, end_index = index_range(page, page_size)
         page_size = end_index - start_index
         current_page = page
-        dataset_page = self.__dataset[start_index:end_index]
+        dataset_page = self.dataset()[start_index:end_index]
         next_page = page + 1 if end_index < len(self.__dataset) else None
         prev_page = current_page - 1 if current_page > 0 else None
         total_pages = math.ceil(len(self.__dataset) / page_size)
