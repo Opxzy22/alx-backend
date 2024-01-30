@@ -59,11 +59,9 @@ class Server:
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List[str]]:
         """
         Get a specific page of the dataset.
-
         Args:
             page (int): Page number to retrieve (default is 1).
             page_size (int): Number of items per page (default is 10).
-
         Returns:
             List[List[str]]: The dataset for the specified page.
         """
