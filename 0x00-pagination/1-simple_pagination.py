@@ -5,12 +5,14 @@ a function that returns a calculated start and end indexes
 import csv
 import math
 from typing import List
+import os
 
 
 def index_range(page: int, page_size: int) -> tuple:
     """
         it adjust the page number to be indexed 0
-        start_index: calculates the start index for the given page and page_size
+        start_index: calculates the start index for the given
+        page and page_size
         end_index: calculates the start index for the given page and page_size
         returns a tuple containing the calculated start and end indexes
     """
@@ -20,10 +22,12 @@ def index_range(page: int, page_size: int) -> tuple:
 
     return start_index, end_index
 
+
 class Server:
     """Server class to paginate a database of popular baby names.
     """
-    DATA_FILE = "Popular_Baby_Names.csv"
+    DATA_FILE = os.path.join(os.path.dirname(__file__),
+                             "Popular_Baby_Names.csv")
 
     def __init__(self):
         self.__dataset = None
@@ -42,11 +46,9 @@ class Server:
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """
              get the specified page with the documents
-
         Args:
             page (int, optional): the page number to display. Defaults to 1.
             page_size (int, optional): the size of document. Defaults to 10.
-
         Returns:
             List[List]: the document
         """
@@ -55,7 +57,8 @@ class Server:
         assert page > 0
         assert page_size > 0
         start_index, end_index = index_range(page, page_size)
-        if start_index > len(self.__dataset) or end_index > len(self.dataset):
+        if start_index > len(self.dataset())
+        or end_index > len(self.dataset()):
             return []
+
         return self.__dataset[start_index:end_index]
-        
