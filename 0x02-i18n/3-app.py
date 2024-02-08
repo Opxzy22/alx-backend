@@ -3,10 +3,7 @@
     Basic flask setup using babel, defines class Config
 """
 from flask import Flask, render_template, request
-from flask_babel import Babel
-
-app = Flask(__name__)
-babel = Babel(app)
+from flask_babel import Babel, _
 
 
 class Config:
@@ -16,11 +13,14 @@ class Config:
     BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
+""" configure app """
+app = Flask(__name__)
+babel = Babel(app)
 app.config.from_object(Config)
 
 
 @babel.localeselector
-def get_locale():
+def get_locale() -> str:
     """
     get the best matched language for the locale
     Returns:
@@ -30,13 +30,13 @@ def get_locale():
 
 
 @app.route('/')
-def index():
+def index() -> str:
     """
     The index/home page
     Returns:
         str: renders the template for display
     """
-    return render_template('./2-index.html')
+    return render_template('./3-index.html')
 
 
 if __name__ == "__main__":
